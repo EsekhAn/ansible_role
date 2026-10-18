@@ -1,2 +1,5 @@
 ---
-# defaults file for builder
+repo_url: "https://github.com/EsekhAn/ansible_role.git"
+repo_version: "master"
+repo_dir: "/opt/myapp/repo"
+build_artifacts_dir: "/opt/myapp/artifacts"
