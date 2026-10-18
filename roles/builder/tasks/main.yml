@@ -29,13 +29,12 @@
     dest: "{{ repo_dir }}"
     force: yes
 
-- name: Copy build compose file from repo
+- name: Render build compose file from repo
   ansible.builtin.template:
     src: docker-compose.build.yml.j2
     dest: /opt/myapp/docker-compose.yml
     mode: '0644'
-    remote_src: yes
-
+  
 - name: Run builder container
   ansible.builtin.command:
     cmd: docker compose up 
