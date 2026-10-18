@@ -1,2 +1,48 @@
 ---
-# tasks file for builder
+- name: Ensure Docker and git are installed
+  ansible.builtin.package:
+    name:
+      - docker.io
+      - git
+    state: present
+
+- name: Ensure docker service is running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create build directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /opt/myapp
+    - "{{ repo_dir }}"
+    - "{{ build_artifacts_dir }}"
+
+- name: Clone or update repo on build node
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    version: "{{ repo_version }}"
+    dest: "{{ repo_dir }}"
+    force: yes
+
+- name: Copy build compose file from repo
+  ansible.builtin.copy:
+    src: "{{ repo_dir }}/docker-compose.build.yml"
+    dest: /opt/myapp/docker-compose.yml
+    mode: '0644'
+    remote_src: yes
+
+- name: Run builder container
+  ansible.builtin.command:
+    cmd: docker compose up 
+    chdir: /opt/myapp
+  register: build_run
+
+- name: Tear down build compose project
+  ansible.builtin.command:
+    cmd: docker compose down
+    chdir: /opt/myapp
