@@ -1,3 +1,4 @@
 ---
 build_artifacts_dir: "/opt/myapp/artifacts"
 prod_artifacts_dir: "/opt/myapp/artifacts"
+prod_port: "8080"
