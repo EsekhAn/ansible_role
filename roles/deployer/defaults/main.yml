@@ -1,2 +1,3 @@
 ---
-# defaults file for deployer
+build_artifacts_dir: "/opt/myapp/artifacts"
+prod_artifacts_dir: "/opt/myapp/artifacts"
