@@ -1,0 +1,14 @@
+---
+version: '3.8'
+
+services:
+  builder:
+    image: maven:3.9-eclipse-temurin-17
+    volumes:
+      - /opt/myapp/repo:/repo
+      - /opt/myapp/artifacts:/shared
+    working_dir: /repo
+    command: >
+      sh -c "mvn clean package -DskipTests &&
+             cp /repo/target/*.war /shared/app.war"
+    restart: "no"

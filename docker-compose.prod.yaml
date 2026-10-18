@@ -1,0 +1,11 @@
+---
+version: '3.8'
+
+services:
+  tomcat:
+    image: tomcat:9-jdk17-temurin
+    volumes:
+      - /opt/myapp/artifacts/app.war:/usr/local/tomcat/webapps/app.war:ro
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
