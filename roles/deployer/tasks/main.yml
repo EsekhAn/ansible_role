@@ -32,7 +32,7 @@
 
 - name: Copy prod compose file from repo
   ansible.builtin.copy:
-    src: "/opt/myapp/repo/docker-compose.prod.yml"
+    src: "/opt/myapp/repo/docker-compose.prod.yaml"
     dest: /opt/myapp/docker-compose.yml
     mode: '0644'
     remote_src: yes
