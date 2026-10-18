@@ -1,0 +1,8 @@
+services:
+  tomcat:
+    image: tomcat:9-jdk17-temurin
+    volumes:
+      - {{ prod_artifacts_dir }}/app.war:/usr/local/tomcat/webapps/app.war:ro
+    ports:
+      - "{{ prod_port }}:8080"
+    restart: unless-stopped
