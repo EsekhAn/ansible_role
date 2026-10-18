@@ -1,0 +1,12 @@
+---
+- name: Prepare build environment and build project
+  hosts: build
+  become: yes
+  roles:
+    - builder
+
+- name: Prepare prod environment and deploy application
+  hosts: prod
+  become: yes
+  roles:
+    - deployer
